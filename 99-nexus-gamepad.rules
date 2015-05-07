@@ -1,0 +1,21 @@
+# /etc/udev/rules.d/99-nexus-gamepad.rules
+
+# if a Nexus Gamepad is connected, run the script which handles renaming and launching xboxdrv
+ACTION=="add", KERNEL=="event*", SUBSYSTEM=="input", ATTRS{name}=="ASUS Gamepad", RUN+="/games/xboxdrv/nexus_connect.sh %n"
+
+# if a Nexus Gamead is removed, run the script which kills xboxdrv and removes the device
+ACTION=="remove", KERNEL=="event*", SUBSYSTEM=="input", ATTRS{name}=="ASUS Gamepad", RUN+="/games/xboxdrv/nexus_disconnect.sh %n"
+
+# if a non-Nexus gamepad js* node is added, create the joystick* node
+ACTION=="add", KERNEL=="js*", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{name}!="ASUS Gamepad", RUN+="/games/xboxdrv/add_js.sh %n"
+
+# if a non-Nexus gamepad js* node is removed, remove the joystick* node
+ACTION=="remove", KERNEL=="js*", SUBSYSTEM=="input", SUBSYSTEMS=="input", ATTRS{name}!="ASUS Gamepad", RUN+="/games/xboxdrv/remove_js.sh %n"
+
+# run the js* rebuild script if there is any change to the js* nodes  at all
+# this script will handle symlinks to joystick* as sjs*, sorted in order of connection
+# then it removes all js* nodes and copies the sjs* nodes as js*
+# this retains the device ordering we want, as powering down a Nexus gamepad will
+# remove the js* device that the kernel has assigned to it, even if we already
+# deleted or renamed it and replaced it with our own... So this is a brute force.
+KERNEL=="js*", SUBSYSTEM=="input", RUN+="/games/xboxdrv/js_symlinks.sh"
