@@ -6,7 +6,7 @@ This is a very hacky solution. I'm not offering support and take no responsibili
 
 I put these files into /games/xboxdrv/ but you can look through them all and change the path to whatever you want. I'd advise you do this anyhow, so you know what you're doing on your system!
 
-I then copy the 99-nexus_gamepad.rules file into /dev/udev/rules.d/ and make sure xboxdrv is installed.
+I then copy the 99-nexus-gamepad.rules file into /dev/udev/rules.d/ and make sure xboxdrv is installed.
 
 That's all there is to it! Works for me, on Debian 8.0. If I have to make changes or come up with better solutions in the future, I will try to update this repo. Until such a time, use these files at your own risk and with no warranty.
 
