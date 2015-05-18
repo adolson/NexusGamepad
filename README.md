@@ -11,3 +11,7 @@ I then copy the 99-nexus-gamepad.rules file into /dev/udev/rules.d/ and make sur
 That's all there is to it! Works for me, on Debian 8.0. If I have to make changes or come up with better solutions in the future, I will try to update this repo. Until such a time, use these files at your own risk and with no warranty.
 
 Contents are released to the Public Domain.
+
+# Problems
+
+This works on my gaming rig without issue. However, when I try to set it up identically on my laptop, also running Debian 8.0, I have a weird issue where powering off the gamepad doesn't run the disconnect stuff. Powering the gamepad back on resumes functioning; this should be fine for single-player games and using only one pad, but could be an issue for multiple gamepads. Even without using these scripts and rules, the event* and js* devices created when first pairing the controller to the system remain even after powering off the gamepad. I don't really understand why this is the case. If anyone knows what could possibly be different on my two systems, let me know.
